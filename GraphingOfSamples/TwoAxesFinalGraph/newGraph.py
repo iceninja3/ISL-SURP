@@ -1,0 +1,80 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+# --- Configuration ---
+OIL_WATER_FILENAME = 'UpdatedOilWaterConcentrations.csv'
+GLUCOSE_WATER_FILENAME = 'UpdatedGlucoseWaterConcentrations.csv'
+PLOT_TITLE = ''
+OUTPUT_FILENAME = 'combined_plot_new_colors.png'
+
+# --- Data Loading and Cleaning Function ---
+def load_and_clean_data(filename, concentration_col_name):
+    """Loads a CSV file, cleans it, and creates a frequency group."""
+    try:
+        df = pd.read_csv(filename)
+        df[concentration_col_name] = pd.to_numeric(df[concentration_col_name], errors='coerce')
+        df['Power (dBm)'] = pd.to_numeric(df['Power (dBm)'], errors='coerce')
+        df['Sample'] = pd.to_numeric(df['Sample'], errors='coerce')
+        df.dropna(inplace=True)
+        # Create a new column for the frequency group by taking the integer part of the sample frequency
+        df['Frequency Group'] = df['Sample'].astype(int)
+        return df
+    except (FileNotFoundError, KeyError) as e:
+        print(f"Error processing file {filename}: {e}")
+        return None
+
+# --- Main Script ---
+df_oil = load_and_clean_data(OIL_WATER_FILENAME, 'Concentration(%)')
+df_glucose = load_and_clean_data(GLUCOSE_WATER_FILENAME, 'Concentration(M)')
+
+# --- Plotting Section ---
+if df_oil is not None and df_glucose is not None:
+    # Define the colors to use for the frequency groups
+    # From the user's list: orange, red, blue, purple, green. Avoiding bright colors.
+    colors_to_use = ['blue', 'green', 'purple']
+
+    # Get all unique frequency groups from both dataframes and sort them
+    unique_freqs = sorted(pd.concat([df_oil['Frequency Group'], df_glucose['Frequency Group']]).unique())
+
+    # Create a mapping from frequency group to a specific color
+    color_map = {freq: color for freq, color in zip(unique_freqs, colors_to_use)}
+
+    # Create the figure and the first axes
+    fig, ax1 = plt.subplots(figsize=(14, 8))
+
+    # --- Plot Oil-Water data on the primary axes (ax1) ---
+    for sample_name, group_data in df_oil.groupby('Sample'):
+        freq_group = group_data['Frequency Group'].iloc[0]
+        color = color_map.get(freq_group, 'black') # Default to black if group not in map
+        ax1.plot(group_data['Concentration(%)'], group_data['Power (dBm)'],
+                 marker='o', linestyle='-', label=f"Oil: {sample_name} MHz", color=color)
+
+    ax1.set_xlabel('Oil Concentration (%)', fontsize=12)
+    ax1.set_ylabel('Reflected Power (dBm)', fontsize=12)
+
+    # --- Create the second axes that shares the y-axis ---
+    ax2 = ax1.twiny()
+
+    # --- Plot Glucose-Water data on the secondary axes (ax2) ---
+    for sample_name, group_data in df_glucose.groupby('Sample'):
+        freq_group = group_data['Frequency Group'].iloc[0]
+        color = color_map.get(freq_group, 'black')
+        ax2.plot(group_data['Concentration(M)'], group_data['Power (dBm)'],
+                 marker='s', linestyle='--', label=f"Glucose: {sample_name} MHz", color=color)
+
+    ax2.set_xlabel('Glucose Concentration (M)', fontsize=12)
+
+    # --- Final Touches ---
+    plt.title(PLOT_TITLE, fontsize=16, pad=20)
+
+    # Create a single legend for both axes
+    lines1, labels1 = ax1.get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    ax1.legend(lines1 + lines2, labels1 + labels2, loc='best', title="Frequency Samples")
+
+    fig.tight_layout()
+    plt.savefig(OUTPUT_FILENAME)
+
+    print(f"Plot saved successfully as '{OUTPUT_FILENAME}'")
+ 

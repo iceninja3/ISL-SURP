@@ -1,0 +1,19 @@
+Sample,Frequency (GHz),Power (dBm)
+Bare Mirror (control),432.56,-32.6
+Bare Mirror (control),409.32,-33.7
+Bare Mirror (control),365.60,-29.9
+Mirror + Empty Slide,432.27,-34.1
+Mirror + Empty Slide,408.78,-35.7
+Mirror + Empty Slide,365.40,-36.2
+Water,432.27,-38.0
+Water,408.69,-38.1
+Water,365.40,-34.3
+Oil,432.18,-33.4
+Oil,408.69,-35.9
+Oil,365.4,-43.7
+Glucose Max,432.18,-33.7
+Glucose Max,408.69,-35.7
+Glucose Max,365.4,-35.6
+Saltwater(saturated),432.18,-34.5
+Saltwater(saturated),408.69,-35.4
+Saltwater(saturated),365.4,-33.2
