@@ -5,7 +5,9 @@ Code I wrote in the Integrated Sensors Laboratory for a NSF REU opportunity in t
 Some is to operate machinery (like programming Thor Labs rails and collecting data from measurement instruments) while others are to analyze data (making simple plots and graphs). Other code is to simulate experimental setups.
 
 ## Interferometric Sensor Response Simulation
-In this script, I model and simulate the response of an interferometric sensor to a periodic, physiological signal. The primary goal is to demonstrate a full workflow: from processing raw calibration data to verifying that a known input frequency can be accurately recovered from the simulated sensor output. This is a foundational process for vibrometry applications, such as remote heartbeat detection.
+In these script, I model and simulate the response of an interferometric sensor to a periodic, physiological signal. The primary goal is to demonstrate a full workflow: from processing raw calibration data to verifying that a known input frequency can be accurately recovered from the simulated sensor output. This is a foundational process for vibrometry applications, such as remote heartbeat detection.
+
+Note: Final figures I used were of a heartbeat (physiological signal) but some of the scripts you see are with normal sine waves and aren't pulse signals.
 
 The entire process is broken down into four main stages:
 
