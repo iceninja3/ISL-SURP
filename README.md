@@ -4,6 +4,12 @@ Code I wrote in the Integrated Sensors Laboratory for a NSF REU opportunity in t
 
 Some is to operate machinery (like programming Thor Labs rails and collecting data from measurement instruments) while others are to analyze data (making simple plots and graphs). Other code is to simulate experimental setups.
 
+## Concentration/Material Determination Experiments Plots
+Made a few different plots. Fiddled a lot with the formatting/colors so that it would be presentable for the final research poster. 
+Two main plots:
+* Material determination experiment plots (can we identify any differences between the wave absorption of different materials?)
+* Concentration Determination (Oil/water mixture and glucose/water solution). (Can we identify any differences in the concentrations of different materials?)
+
 ## Poster
 Has draft posters meant for presentation at the SURP symposium. THe folder "final submission" has the posters themselves. File J is the one used in the SURP research journal while File S is the one used for the SURP research symposium. Both are the same, just sized accordingly.
 
