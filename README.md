@@ -5,7 +5,7 @@ Code I wrote in the Integrated Sensors Laboratory for a NSF REU opportunity in t
 Some is to operate machinery (like programming Thor Labs rails and collecting data from measurement instruments) while others are to analyze data (making simple plots and graphs). Other code is to simulate experimental setups.
 
 ## Interferometric Sensor Response Simulation
-In these script, I model and simulate the response of an interferometric sensor to a periodic, physiological signal. The primary goal is to demonstrate a full workflow: from processing raw calibration data to verifying that a known input frequency can be accurately recovered from the simulated sensor output. This is a foundational process for vibrometry applications, such as remote heartbeat detection.
+In these scripts, I model and simulate the response of an interferometric sensor to a periodic, physiological signal. The primary goal is to demonstrate a full workflow: from processing raw calibration data to verifying that a known input frequency can be accurately recovered from the simulated sensor output. This is a foundational process for vibrometry applications, such as remote heartbeat detection.
 
 Note: Final figures I used were of a heartbeat (physiological signal) but some of the scripts you see are with normal sine waves and aren't pulse signals.
 
@@ -16,7 +16,7 @@ First, I take raw power data obtained from a calibration sweep of the interferom
 
 I load this data using pandas and io.StringIO, which allows me to treat the multi-line string data as if it were a file.
 
-The core of this section is finding the optimal operating point (also known as the quadrature point). This is the region where the sensor's response to small displacements is most linear and has the highest sensitivity.
+The core of this section is finding the optimal operating point. This is the region where the sensor's response to small displacements is most linear and has the highest sensitivity.
 
 To find this point, I calculate the derivative (the slope) of the power curve with respect to displacement using np.gradient. The displacement corresponding to the maximum absolute value of this derivative is my optimal DC offset.
 
